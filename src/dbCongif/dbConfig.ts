@@ -1,22 +1,24 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 
-export async function connectDb(){
+dotenv.config(); // Load environment variables
+
+export async function connectDb() {
     try {
-        mongoose.connect(process.env.MONGO_URL!)
-
-
-        const conn= mongoose.connection;
-        conn.on('connected',()=>{
-            console.log('Database connection established');
-        })
-        conn.on('error',(error)=>{
-            console.error('Database connection error'+error);
-        })
-        process.exit();
+        // Connect to MongoDB
+        await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI!, {
         
-    } catch (error) {
-        console.error("Something went wrong",error);
+        });
 
+        // Event listeners
+        const conn = mongoose.connection;
+        conn.on("connected", () => {
+            console.log("Database connection established");
+        });
+        conn.on("error", (error) => {
+            console.error("Database connection error: " + error);
+        });
+    } catch (error:any) {
+        console.error("Failed to connect to the database:", error.message);
     }
 }

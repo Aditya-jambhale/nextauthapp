@@ -1,5 +1,4 @@
 import bcryptjs from 'bcryptjs';
-import { Verify } from 'node:crypto';
 import User from '@/models/userModel';
 import nodemailer from 'nodemailer';
 
