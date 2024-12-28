@@ -7,18 +7,20 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
 
         const hashedToken = await bcryptjs.hash(userId.toString(), 10);
         if (emailType === "Verify") {
-            await User.findByIdAndUpdate(userId,
-                {
+            await User.findByIdAndUpdate(userId, {
+                $set: {
                     verifyToken: hashedToken,
                     verifyTokenExpiry: Date.now() + 3600000
                 }
+            }
             )
         } else if (emailType === "Reset") {
-            await User.findByIdAndUpdate(userId,
-                {
+            await User.findByIdAndUpdate(userId, {
+                $set: {
                     forgetPasswordToken: hashedToken,
                     forgetPasswordTokenExpiry: Date.now() + 3600000
                 }
+            }
             )
         }
 
