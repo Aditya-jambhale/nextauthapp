@@ -13,29 +13,29 @@ export async function POST(request: NextRequest) {
         const { username, email, password } = reqBody;
         // Validation
         if (!username || !email || !password) {
-            return NextResponse.json({ 
-                error: "All fields are required" 
+            return NextResponse.json({
+                error: "All fields are required"
             }, { status: 400 });
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            return NextResponse.json({ 
-                error: "Invalid email format" 
+            return NextResponse.json({
+                error: "Invalid email format"
             }, { status: 400 });
         }
 
         // Check if user already exists
-        const usere = await User.findOne({ email});
+        const usere = await User.findOne({ email });
         if (usere) {
-            return NextResponse.json({ 
-                error: "User already exists" 
+            return NextResponse.json({
+                error: "User already exists"
             }, { status: 400 });
         }
-        const usern = await User.findOne({username});
+        const usern = await User.findOne({ username });
         if (usern) {
-            return NextResponse.json({ 
-                error: "User already exists" 
+            return NextResponse.json({
+                error: "User already exists"
             }, { status: 400 });
         }
 
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
         });
         const savedUser = await newUser.save();
 
-        console.log("User Saved:",savedUser);
+        console.log("User Saved:", savedUser);
 
         // Send verification email
         await sendEmail({ email, emailType: "Verify", userId: savedUser._id });
@@ -65,11 +65,11 @@ export async function POST(request: NextRequest) {
         });
 
     } catch (error) {
-      if (error instanceof Error) {
-          console.error("Error during registration,Please check your email or username it should be unique:", error);
-          return NextResponse.json({ 
-              error: error.message 
-          }, { status: 500 });
-      }
+        if (error instanceof Error) {
+            console.error("Error during registration,Please check your email or username it should be unique:", error);
+            return NextResponse.json({
+                error: error.message
+            }, { status: 500 });
+        }
     }
 }

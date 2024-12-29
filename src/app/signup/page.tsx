@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { toast } from 'react-hot-toast';
+
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 export default function Signup() {
@@ -19,7 +19,7 @@ export default function Signup() {
       setLoading(true);
       const response = await axios.post("/api/Users/signup", user)
       console.log("signup successful", response.data);
-      toast.success("signup successful");
+      alert("please verify your email")
       router.push('/login');
 
     } catch (error) {
@@ -37,6 +37,7 @@ export default function Signup() {
   }, [user])
   return (
     <div className='flex flex-col items-center justify-center min-h-screen py-2'>
+      <h1 className='text-3xl font-bold text-blue-500 mb-8 p-6'>Welcome to the nextauthapp  :)</h1>
       <h1>{loading ? "Processing" : "Signup"}</h1>
       <hr />
       <label htmlFor="username">username</label>

@@ -43,7 +43,7 @@ export default function VerifyEmail() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
-            <h1 className="text-4xl">Please Verify Your Email</h1>
+            <h1 className="text-3xl text-blue-400 ">Please Verify Your Email :)</h1>
             <h2 className="text-black">{token ? `Token: ${token}` : "No token found"}</h2>
             <div>
                 <button

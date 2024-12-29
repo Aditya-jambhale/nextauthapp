@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Login() {
   const router = useRouter();
@@ -40,6 +41,7 @@ export default function Login() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <h1 className='text-3xl font-bold text-blue-500 mb-8 p-6 '>Welcome to the nextauthapp  :)</h1>
       <h1 className="text-2xl">{loading ? "Processing" : "Login Form"}</h1>
       <hr />
       <label htmlFor="email">Email</label>
@@ -66,7 +68,9 @@ export default function Login() {
         disabled={buttonDisabled}
       >
         {buttonDisabled ? "Please fill the form" : "Login"}
+       
       </button>
+      <Link href="/signup" className='mt-2 text-blue-200 '><span className='underline-none'>Dont have the account?</span>Please signup</Link>
     </div>
   );
 }
