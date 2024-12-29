@@ -1,8 +1,10 @@
+
 import bcryptjs from 'bcryptjs';
 import User from '@/models/userModel';
 import nodemailer from 'nodemailer';
+import { SendEmailParams } from '@/app/api/Users/types/sendparams';
 
-export const sendEmail = async ({ email, emailType, userId }: any) => {
+export const sendEmail = async ({ email , emailType, userId }:SendEmailParams) => {
     try {
 
         const hashedToken = await bcryptjs.hash(userId.toString(), 10);
@@ -26,12 +28,12 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
 
 
 
-        var transporter = nodemailer.createTransport({
+        const transporter = nodemailer.createTransport({
             host: "sandbox.smtp.mailtrap.io",
             port: 2525,
             auth: {
-                user: "4c6e5f0d8ed4fd",
-                pass: "82d938ef18b488"
+                user: process.env.NEXT_PUBLIC_USER,
+                pass: process.env.NEXT_PUBLIC_PASS
             }
         });
 
@@ -47,8 +49,12 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
         return mailRepsonse;
 
 
-    } catch (error: any) {
-        throw new Error(error.message)
+    } catch (error:unknown) {
+        if (error instanceof Error) {
+            console.error(error.message); // Access the message property safely
+        } else {
+            console.error("An unexpected error occurred:", error);
+        }
     }
 }
 

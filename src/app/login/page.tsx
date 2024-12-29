@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+
 export default function login() {
   const router = useRouter()
   const [user, setUser] = useState({
@@ -34,9 +34,8 @@ export default function login() {
   }, [user])
   return (
     <div className='flex flex-col items-center justify-center min-h-screen py-2'>
-      <h1>{loading ? "Processing" : "Login Form"}</h1>
+      <h1 className='text-2xl'>{loading ? "Processing" : "Login Form"}</h1>
       <hr />
-     
       <label htmlFor="email">email</label>
       <input
         className='p-2 mb-4 text-black'
@@ -59,7 +58,7 @@ export default function login() {
       >
         {buttonDisabled ? "Please fill the form" : "Login"}
       </button>
-     
+
     </div>
   )
 }

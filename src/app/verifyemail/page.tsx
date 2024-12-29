@@ -1,6 +1,6 @@
 "use client";
 import axios from 'axios';
-import { useRouter } from 'next/router';
+
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
@@ -16,10 +16,14 @@ export default function VerifyEmail() {
             await axios.post("/api/Users/verifyemail", { token });
             setVerified(true);
             toast.success("Email verified successfully!");
-        } catch (error: any) {
-            setError(true);
-            toast.error("Failed to verify email.");
-            console.error(error.response?.data || "Unknown error occurred");
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                setError(true);
+                toast.error("Failed to verify email.");
+                console.error(error.message || "An error occurred during email verification.");
+            } else {
+                console.error("Unknown error occurred", error);
+            }
         }
     };
 

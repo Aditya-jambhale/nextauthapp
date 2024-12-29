@@ -14,7 +14,11 @@ export async function connectDb() {
         });
         // Connect to MongoDB
         await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI!)
-    } catch (error:any) {
-        console.error("Failed to connect to the database:", error.message);
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error("Failed to connect to the database",error.message); // Access the message property safely
+        } else {
+            console.error("An unexpected error occurred:", error);
+        }
     }
 }

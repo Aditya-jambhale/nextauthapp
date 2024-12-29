@@ -22,8 +22,10 @@ export default function Signup() {
       toast.success("signup successful");
       router.push('/login');
 
-    } catch (error: any) {
-      console.log("signup failed");
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log("signup failed");
+      }
     }
   }
   useEffect(() => {

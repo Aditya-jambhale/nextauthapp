@@ -5,9 +5,13 @@ import jwt from "jsonwebtoken";
 export const getDatafromToken = (request: NextRequest)=>{
     try {
         const token = request.cookies.get("token")?.value || ""
-        const decodedtoken: any = jwt.verify(token, process.env.NEXT_PUBLIC_TOKEN_SECRET!)
+        const decodedtoken:any= jwt.verify(token, process.env.NEXT_PUBLIC_TOKEN_SECRET!)
         return decodedtoken.id
-    } catch (error: any) {
-        throw new Error(error.message);
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            console.error(error.message); // Access the message property safely
+        } else {
+            console.error("An unexpected error occurred:", error);
+        }
     }
 }

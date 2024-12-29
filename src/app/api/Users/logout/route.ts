@@ -1,7 +1,7 @@
 import { connectDb } from "@/dbCongif/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
 connectDb();
-export async function GET(request: NextRequest) {
+export async function GET() {
     try {
         const response = NextResponse.json({
             message: "Logout successfully",
@@ -12,10 +12,13 @@ export async function GET(request: NextRequest) {
             expires: new Date(0)
         })
         return response
-    } catch (error: any) {
-        return NextResponse.json(
-            { error: error.message },
-            { status: 500 }
-        )
+    } catch (error) {
+      if (error instanceof Error)  {
+          return NextResponse.json(
+              { error: error.message },
+              { status: 500 }
+          )
+      }
+        
     }
 }
