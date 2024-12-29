@@ -64,10 +64,12 @@ export async function POST(request: NextRequest) {
             user: { _id, username: savedUsername, email: savedEmail },
         });
 
-    } catch (error:any) {
-        console.error("Error during registration,Please check your email or username it should be unique:", error);
-        return NextResponse.json({ 
-            error: error.message 
-        }, { status: 500 });
+    } catch (error) {
+      if (error instanceof Error) {
+          console.error("Error during registration,Please check your email or username it should be unique:", error);
+          return NextResponse.json({ 
+              error: error.message 
+          }, { status: 500 });
+      }
     }
 }

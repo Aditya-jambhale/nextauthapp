@@ -1,5 +1,5 @@
 import { connectDb } from "@/dbCongif/dbConfig";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 connectDb();
 export async function GET() {
     try {
@@ -13,12 +13,12 @@ export async function GET() {
         })
         return response
     } catch (error) {
-      if (error instanceof Error)  {
-          return NextResponse.json(
-              { error: error.message },
-              { status: 500 }
-          )
-      }
-        
+        if (error instanceof Error) {
+            return NextResponse.json(
+                { error: error.message },
+                { status: 500 }
+            )
+        }
+
     }
 }
